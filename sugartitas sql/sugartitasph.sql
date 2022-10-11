@@ -1,0 +1,43 @@
+ALTER TABLE orders
+ADD PRIMARY KEY(Order_ID,Customer_ID);
+
+ALTER TABLE orders
+MODIFY Order_ID varchar(10) NOT NULL;
+
+ALTER TABLE orders
+MODIFY Customer_ID varchar(10) NOT NULL;
+
+ALTER TABLE order_product
+ADD PRIMARY KEY(Order_ID,Product_ID);
+
+ALTER TABLE order_product
+MODIFY Order_ID varchar(10) NOT NULL;
+
+ALTER TABLE order_product
+MODIFY Product_ID varchar(10) NOT NULL;
+
+ALTER TABLE Customer
+MODIFY COLUMN ZipCode INT;
+
+ALTER TABLE orders
+ADD CONSTRAINT orders_fk FOREIGN KEY(Customer_ID)
+REFERENCES customer(Customer_ID)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE order_product
+ADD CONSTRAINT ordprod_fk FOREIGN KEY(Order_ID)
+REFERENCES orders(Order_ID)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE order_product
+ADD CONSTRAINT ordprod_fk1 FOREIGN KEY(Product_ID)
+REFERENCES product(Product_ID)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE product
+ADD CONSTRAINT prod_fk1 FOREIGN KEY(Category)
+REFERENCES category(Category);
+
